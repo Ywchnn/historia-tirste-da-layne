@@ -32,11 +32,11 @@ canvas#pt{image-rendering:pixelated;width:80px;height:112px}
 <div class="ov hide" id="dl"><div class="box"><div class="sp"><canvas id="pt" width="10" height="14"></canvas><div><b id="who"></b><p id="tx" style="margin:.4em 0"></p></div></div><button class="b" id="nx">Próximo</button></div></div>
 </div>
 <script>
-var P={h:'#1a1420',s:'#f3cfb0',w:'#fff',e:'#111',r:'#d0283f',b:'#3b3f6b',k:'#5a3a2a',y:'#f5c542',p:'#ff8fb1',t:'#2fb5a3',g:'#9a9aa8',d:'#7a1f2b',o:'#e08a3c',m:'#6a4bc4',n:'#c9a27a',G:'#0d0d12',R:'#b01826',K:'#23232f'};
+var P={h:'#1a1420',s:'#f3cfb0',w:'#fff',e:'#111',r:'#d0283f',b:'#3b3f6b',k:'#5a3a2a',y:'#f5c542',p:'#ff8fb1',t:'#2fb5a3',g:'#9a9aa8',d:'#7a1f2b',o:'#e08a3c',m:'#6a4bc4',n:'#c9a27a',q:'#3d9a3d',G:'#0d0d12',R:'#b01826',K:'#23232f'};
 var PL=["...hhhhhh...","..hhhhhhhh..",".hhhhhhhhhh.",".hhsssssshh.",".hhGeGGeGhh.",".hhsssssshh.",".hhsssssshh.",".hhRRYRRRRhh",".hKKKRYKKKKh","hhKKKRYKKKhn","hKKKKRRKKKKs",".KKKKKKKKKK.",".KKKKKKKKKK.",".KKKKKKKKKK.","..kk....kk.."];
 var PL2=PL.slice(0,14).concat(["...kk..kk..."]);
 var NP=["..hhhhhh..",".hhhhhhhh.",".hssssssh.",".hsessesh.",".hssssssh.","...ssss...","..cccccc..",".cccaaccc.","scccaacccs",".cccaaccc.",".cccccccc.","..cc..cc..","..cc..cc..","..kk..kk.."];
-var IT={heart:[".rr.rr.","rrrrrrr","rrrrrrr",".rrrrr.","..rrr..","...r..."],book:["mmmmmmw","mmpmpmw","mmppmmw","mmmmmmw","mmmmmmw"],flute:["......t","....tt.","...tt..","..tt...",".tt....","tt....."],cuscuz:[".w.w.w.","yyyyyyy","yoyoyoy","yyyyyyy",".yyyyy."],tea:["wwwwww.","wwwwwww","wwwwww.",".wwww..","ggggggg"],ribbon:["r.....r","rr...rr",".rr.rr.","..rrr..","..r.r..",".rr.rr."]};
+var IT={heart:[".rr.rr.","rrrrrrr","rrrrrrr",".rrrrr.","..rrr..","...r..."],book:["mmmmmmw","mmpmpmw","mmppmmw","mmmmmmw","mmmmmmw"],flute:["......t","....tt.","...tt..","..tt...",".tt....","tt....."],cuscuz:[".w.w.w.","yyyyyyy","yoyoyoy","yyyyyyy",".yyyyy."],tea:["wwwwww.","wwwwwww","wwwwww.",".wwww..","ggggggg"],laranja:["...qq..",".ooooo.","oooyooo","ooooooo","ooooooo",".ooooo.","..ooo.."],ribbon:["r.....r","rr...rr",".rr.rr.","..rrr..","..r.r..",".rr.rr."]};
 var CH=[
 {n:"Lan Wangji",h:"#1a1420",c:"#f4f4fa",a:"#9fc3e8",t:"嗯。香蕉在月亮上睡觉，椅子非常生气。"},
 {n:"Wei Wuxian",h:"#1a1420",c:"#2b2b33",a:"#d0283f",t:"哈哈！我的鞋子会唱歌，云今天吃了三碗米饭！"},
@@ -49,22 +49,22 @@ var SKY=['#f7b35c','#bfe6e0','#a9c8ef','#241a3a'],GR=['#d9a05b','#9fb3b8','#6a8f
 var GRD=[[0,480],[520,420],[980,460],[1480,500],[2020,500],[2560,440]];
 var PF=[[200,115,50],[280,95,50],[600,112,60],[720,90,50],[1060,115,60],[1150,92,60],[1560,110,60],[1650,88,50],[2100,112,60],[2190,90,60],[2650,112,60]];
 var SOL=PF.concat(GRD.map(function(g){return [g[0],150,g[1]]}));
-var ITM=[[220,105,'heart'],[300,85,'book'],[430,138,'cuscuz'],[620,102,'flute'],[740,80,'tea'],[880,138,'ribbon'],[1080,105,'heart'],[1170,82,'book'],[1350,138,'cuscuz'],[1580,100,'flute'],[1670,78,'tea'],[1850,138,'ribbon'],[2120,102,'heart'],[2210,80,'book'],[2400,138,'cuscuz'],[2670,102,'flute'],[2780,138,'tea']].map(function(a){return{x:a[0],y:a[1],t:a[2],g:0}});
+var ITM=[[220,105,'heart'],[300,85,'book'],[430,138,'cuscuz'],[620,102,'flute'],[740,80,'tea'],[880,138,'ribbon'],[1080,105,'heart'],[1170,82,'book'],[1350,138,'cuscuz'],[1580,100,'flute'],[1670,78,'tea'],[1850,138,'ribbon'],[2120,102,'heart'],[2210,80,'book'],[2400,138,'cuscuz'],[2670,102,'flute'],[2780,138,'tea'],[150,138,'laranja'],[700,138,'laranja'],[1250,138,'laranja'],[2300,138,'laranja']].map(function(a){return{x:a[0],y:a[1],t:a[2],g:0}});
 var cv=document.getElementById("g"),c=cv.getContext("2d");c.imageSmoothingEnabled=false;
-var pl,cam,got,key={},ended,fr=0;
+var pl,cam,got,key={},ended,fr=0,toast="",tt=0;var DM=["Causa da morte: fumou laranja demais","Óbito por falta de estudo de anatomia","Hospital falido: sem leito pra você","Corinthians venceu. Você caiu","Fumar laranja não protege de buracos"];
 function spr(x,m,pal,px,py,s,flip,w){
  w=m[0].length;
  for(var j=0;j<m.length;j++)for(var i=0;i<w;i++){var ch=m[j][flip?w-1-i:i];if(ch=='.')continue;x.fillStyle=pal[ch]||P[ch];x.fillRect(Math.round(px+i*s),Math.round(py+j*s),s,s)}
 }
 function reset(){pl={x:20,y:100,vx:0,vy:0,on:0,f:0};cam=0;got=0;ended=false;ITM.forEach(function(i){i.g=0})}
-function respawn(){pl.x=Math.floor(pl.x/Z)*Z+20;pl.y=100;pl.vy=0;pl.vx=0}
+function respawn(){toast=DM[Math.floor(Math.random()*DM.length)];tt=150;pl.x=Math.floor(pl.x/Z)*Z+20;pl.y=100;pl.vy=0;pl.vx=0}
 function upd(){
  var ax=(key.R?1:0)-(key.L?1:0);pl.vx=ax*1.9;if(ax)pl.f=ax;
  if(key.J&&pl.on){pl.vy=-6.6;pl.on=0}
  var py=pl.y+30;pl.vy+=.35;pl.x=Math.max(0,Math.min(W-24,pl.x+pl.vx));pl.y+=pl.vy;pl.on=0;
  if(pl.vy>=0)SOL.forEach(function(s){var b=pl.y+30;if(py<=s[1]+1&&b>=s[1]&&pl.x+20>s[0]&&pl.x+4<s[0]+s[2]){pl.y=s[1]-30;pl.vy=0;pl.on=1}});
  if(pl.y>200)respawn();
- ITM.forEach(function(i){if(!i.g&&Math.abs(pl.x+12-i.x-3)<12&&Math.abs(pl.y+15-i.y-3)<16){i.g=1;got++}});
+ ITM.forEach(function(i){if(!i.g&&Math.abs(pl.x+12-i.x-3)<12&&Math.abs(pl.y+15-i.y-3)<16){i.g=1;got++;if(i.t=='laranja'){toast='Você fumou uma laranja.';tt=120}}});
  cam=Math.max(0,Math.min(W-320,pl.x-130));
  if(pl.x>2890&&!ended){ended=true;finale()}
 }
@@ -83,7 +83,7 @@ function draw(){
  var m=(pl.on&&(key.L||key.R)&&Math.floor(fr/6)%2)?PL2:PL;
  spr(c,m,P,pl.x+o,pl.y,2,pl.f<0);c.font='bold 8px monospace';c.lineWidth=2;c.strokeStyle='#000';c.fillStyle='#ffe14d';c.strokeText('LAYNE ▼',pl.x+o-6,pl.y-4);c.fillText('LAYNE ▼',pl.x+o-6,pl.y-4);
  c.fillStyle='rgba(0,0,0,.55)';c.fillRect(0,0,320,12);c.fillStyle='#fff';c.font='bold 8px monospace';
- c.fillText(ZN[z]+'   ★ '+got+'/'+ITM.length,4,9);
+ c.fillText(ZN[z]+'   ★ '+got+'/'+ITM.length,4,9);if(bg.paused)c.fillText('♪ toque p/ som',226,9);if(tt>0){tt--;c.fillStyle='rgba(0,0,0,.7)';c.fillRect(30,160,260,14);c.fillStyle='#ffb347';c.fillText(toast,36,170)}
 }
 function loop(){fr++;if(!ended)upd();draw();requestAnimationFrame(loop)}
 var di=0,pt=document.getElementById("pt").getContext("2d");
@@ -102,9 +102,9 @@ document.getElementById("nx").onclick=function(){
  if(di>=CH.length)return;
  di++;say()};
 var bg=new Audio("hino-corinthians.m4a");bg.loop=true;
-function tocar(){bg.play().catch(function(){})}
+function tocar(){if(bg.paused)bg.play().catch(function(){})}
 tocar();
-["pointerdown","keydown","touchstart"].forEach(function(ev){addEventListener(ev,tocar,{once:true})});
+["pointerup","touchend","click","keydown"].forEach(function(ev){addEventListener(ev,tocar)});
 var map={ArrowLeft:'L',a:'L',ArrowRight:'R',d:'R',ArrowUp:'J',w:'J',' ':'J'};
 addEventListener("keydown",function(e){if(map[e.key]){key[map[e.key]]=1;e.preventDefault()}});
 addEventListener("keyup",function(e){if(map[e.key])key[map[e.key]]=0});
